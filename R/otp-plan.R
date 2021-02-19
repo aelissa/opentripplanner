@@ -254,7 +254,7 @@ otp_plan <- function(otpcon = NA,
       # )
 
 
-      cl <- parallel::makeCluster(ncores, outfile = "otp_parallel_log.txt")
+      cl <- parallel::makeCluster(ncores,setup_strategy="sequential", outfile = "otp_parallel_log.txt")
       parallel::clusterExport(
         cl = cl,
         varlist = c("otpcon", "fromPlace", "toPlace", "fromID", "toID"),
@@ -262,7 +262,6 @@ otp_plan <- function(otpcon = NA,
       )
       parallel::clusterEvalQ(cl, {
         loadNamespace("opentripplanner")
-	setMKLthreads(1)
       })
       pbapply::pboptions(use_lb = TRUE)
       results <- pbapply::pblapply(seq(1, nrow(fromPlace)),
