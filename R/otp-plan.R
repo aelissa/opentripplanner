@@ -254,7 +254,7 @@ otp_plan <- function(otpcon = NA,
       # )
 
 
-      cl <- parallel::makeCluster(ncores,setup_strategy="sequential", outfile = "otp_parallel_log.txt")
+      cl <- parallel::makeCluster(ncores,type="FORK", outfile = "otp_parallel_log.txt")
       parallel::clusterExport(
         cl = cl,
         varlist = c("otpcon", "fromPlace", "toPlace", "fromID", "toID"),
